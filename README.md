@@ -41,7 +41,7 @@ spring.datasource.url=your_db_url
 - **POST /newUser:** Creates a new user.
 - **PUT /user/{id}/update:** Updates an existing user.
 - **DELETE /user/{id}/delete:** Deletes a user.
-- **GET /searchUsers:** Finds users by birth date.
+- **GET /searchUsers?from={from}&to={to}:** Finds users by birth date.
 
 ## Running Tests
 To run the tests, use the following command:
