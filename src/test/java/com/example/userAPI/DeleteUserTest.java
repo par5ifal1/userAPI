@@ -10,12 +10,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -59,8 +61,8 @@ public class DeleteUserTest {
         Long userId = testH2Repository.findAll().get(0).getId();
         HttpEntity<Long> request = new HttpEntity<>(userId);
 
-        assertThrows(HttpClientErrorException.NotFound.class,
-                () -> restTemplate.exchange(baseUrl + "user/" + userId + "/delete",
+        assertEquals(HttpStatus.NO_CONTENT,
+        restTemplate.exchange(baseUrl + "user/" + userId + "/delete",
                 HttpMethod.DELETE, request, UserDTO.class).getStatusCode());
 
         assertEquals(0, testH2Repository.findAll().size());
